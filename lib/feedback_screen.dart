@@ -29,9 +29,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).padding.top,
-                        left: 16,
-                        right: 16),
+                      top: MediaQuery.of(context).padding.top,
+                      left: 16,
+                      right: 16,
+                    ),
                     child: Image.asset(
                       'assets/images/feedbackImage.png',
                     ),
@@ -69,9 +70,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                               const BorderRadius.all(Radius.circular(4.0)),
                           boxShadow: <BoxShadow>[
                             BoxShadow(
-                                color: Colors.grey.withOpacity(0.6),
-                                offset: const Offset(4, 4),
-                                blurRadius: 8.0),
+                              color: Colors.grey.withOpacity(0.6),
+                              offset: const Offset(4, 4),
+                              blurRadius: 8.0,
+                            ),
                           ],
                         ),
                         child: Material(

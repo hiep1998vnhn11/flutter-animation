@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class SplashView extends StatefulWidget {
   final AnimationController animationController;
 
-  const SplashView({Key? key, required this.animationController})
-      : super(key: key);
+  const SplashView({
+    Key? key,
+    required this.animationController,
+  }) : super(key: key);
 
   @override
   _SplashViewState createState() => _SplashViewState();
@@ -13,43 +15,63 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
-    final _introductionanimation =
-        Tween<Offset>(begin: Offset(0, 0), end: Offset(0.0, -1.0))
-            .animate(CurvedAnimation(
-      parent: widget.animationController,
-      curve: Interval(
-        0.0,
-        0.2,
-        curve: Curves.fastOutSlowIn,
+    final _introductionanimation = Tween<Offset>(
+      begin: const Offset(0, 0),
+      end: const Offset(0, -1.0),
+    ).animate(
+      CurvedAnimation(
+        parent: widget.animationController,
+        curve: const Interval(
+          0.0,
+          0.2,
+          curve: Curves.fastOutSlowIn,
+        ),
       ),
-    ));
+    );
+
     return SlideTransition(
       position: _introductionanimation,
       child: SingleChildScrollView(
         child: Column(
           children: [
+            Container(
+              height: 100,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xff2B3E45),
+                    Color(0xff335056),
+                    Color(0xff42626C),
+                    Color(0xff3F5D67),
+                  ],
+                ),
+              ),
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Image.asset(
-                'assets/introduction_animation/introduction_image.png',
-                fit: BoxFit.cover,
+                'assets/introduction_animation/intro_image.png',
+                fit: BoxFit.fitHeight,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Text(
-                "Clearhead",
-                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                "Bất động sản",
+                style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 64, right: 64),
               child: Text(
                 "Lorem ipsum dolor sit amet,consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore",
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 48,
             ),
             Padding(
@@ -61,7 +83,7 @@ class _SplashViewState extends State<SplashView> {
                 },
                 child: Container(
                   height: 58,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 56.0,
                     right: 56.0,
                     top: 16,
@@ -69,10 +91,10 @@ class _SplashViewState extends State<SplashView> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(38.0),
-                    color: Color(0xff132137),
+                    color: const Color(0xff132137),
                   ),
-                  child: Text(
-                    "Let's begin",
+                  child: const Text(
+                    "Bắt đầu ngay!",
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,

@@ -53,60 +53,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   appBar(),
                   Expanded(
                     child: FutureBuilder<bool>(
-                      future: getData(),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                        if (!snapshot.hasData) {
-                          return const SizedBox();
-                        } else {
-                          return GridView(
-                            padding: const EdgeInsets.only(
-                                top: 0, left: 12, right: 12),
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            children: List<Widget>.generate(
-                              homeList.length,
-                              (int index) {
-                                final int count = homeList.length;
-                                final Animation<double> animation =
-                                    Tween<double>(begin: 0.0, end: 1.0).animate(
-                                  CurvedAnimation(
-                                    parent: animationController,
-                                    curve: Interval(
-                                      (1 / count) * index,
-                                      1.0,
-                                      curve: Curves.fastOutSlowIn,
-                                    ),
-                                  ),
-                                );
-                                animationController.forward();
-                                return HomeListView(
-                                  animation: animation,
-                                  animationController: animationController,
-                                  listData: homeList[index],
-                                  callBack: () {
-                                    Navigator.push<dynamic>(
-                                      context,
-                                      MaterialPageRoute<dynamic>(
-                                        builder: (BuildContext context) =>
-                                            homeList[index].navigateScreen!,
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: multiple ? 2 : 1,
-                              mainAxisSpacing: 12.0,
-                              crossAxisSpacing: 12.0,
-                              childAspectRatio: 1.5,
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                        future: getData(), builder: _builder),
                   ),
                 ],
               ),
@@ -115,6 +62,60 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         },
       ),
     );
+  }
+
+  Widget _builder(BuildContext context, AsyncSnapshot<bool> snapshot) {
+    if (!snapshot.hasData) {
+      return const SizedBox();
+    } else {
+      return GridView(
+        padding: const EdgeInsets.only(
+          top: 0,
+          left: 12,
+          right: 12,
+        ),
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        children: List<Widget>.generate(
+          homeList.length,
+          (int index) {
+            final int count = homeList.length;
+            final Animation<double> animation =
+                Tween<double>(begin: 0.0, end: 1.0).animate(
+              CurvedAnimation(
+                parent: animationController,
+                curve: Interval(
+                  (1 / count) * index,
+                  1.0,
+                  curve: Curves.fastOutSlowIn,
+                ),
+              ),
+            );
+            animationController.forward();
+            return HomeListView(
+              animation: animation,
+              animationController: animationController,
+              listData: homeList[index],
+              callBack: () {
+                Navigator.push<dynamic>(
+                  context,
+                  MaterialPageRoute<dynamic>(
+                    builder: (BuildContext context) =>
+                        homeList[index].navigateScreen!,
+                  ),
+                );
+              },
+            );
+          },
+        ),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: multiple ? 2 : 1,
+          mainAxisSpacing: 12.0,
+          crossAxisSpacing: 12.0,
+          childAspectRatio: 1.5,
+        ),
+      );
+    }
   }
 
   Widget appBar() {
@@ -199,11 +200,16 @@ class HomeListView extends StatelessWidget {
           opacity: animation!,
           child: Transform(
             transform: Matrix4.translationValues(
-                0.0, 50 * (1.0 - animation!.value), 0.0),
+              0.0,
+              50 * (1.0 - animation!.value),
+              0.0,
+            ),
             child: AspectRatio(
               aspectRatio: 1.5,
               child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(4.0),
+                ),
                 child: Stack(
                   alignment: AlignmentDirectional.center,
                   children: <Widget>[
@@ -217,8 +223,9 @@ class HomeListView extends StatelessWidget {
                       color: Colors.transparent,
                       child: InkWell(
                         splashColor: Colors.grey.withOpacity(0.2),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4.0)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(4.0),
+                        ),
                         onTap: callBack,
                       ),
                     ),
